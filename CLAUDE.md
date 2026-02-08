@@ -49,6 +49,20 @@ User question → `app.py` (FastAPI) → `RAGSystem.query()` → `AIGenerator` s
 - `session_manager.py` — In-memory conversation history per session, capped at `MAX_HISTORY` exchanges.
 - `config.py` — Single `Config` dataclass. Loads `ANTHROPIC_API_KEY` from `.env` via `python-dotenv`.
 
+## Code Quality
+
+The project uses `black` for code formatting. All Python code must be formatted before committing.
+
+```bash
+# Check formatting (CI-safe, exits non-zero on failure)
+bash quality.sh
+
+# Auto-format all code
+bash quality.sh --fix
+```
+
+Configuration is in `pyproject.toml` under `[tool.black]`.
+
 ## Dependencies
 
 Managed with `uv`. Key packages: `fastapi`, `uvicorn`, `chromadb`, `anthropic`, `sentence-transformers`, `python-dotenv`. Python 3.13+.
