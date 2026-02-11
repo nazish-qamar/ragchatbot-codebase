@@ -41,11 +41,18 @@ class QueryRequest(BaseModel):
     session_id: Optional[str] = None
 
 
+class SourceItem(BaseModel):
+    """A single source citation with an optional link"""
+
+    name: str
+    link: Optional[str] = None
+
+
 class QueryResponse(BaseModel):
     """Response model for course queries"""
 
     answer: str
-    sources: List[str]
+    sources: List[SourceItem]
     session_id: str
 
 
@@ -72,6 +79,18 @@ async def query_documents(request: QueryRequest):
         answer, sources = rag_system.query(request.query, session_id)
 
         return QueryResponse(answer=answer, sources=sources, session_id=session_id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/api/session/{session_id}")
+async def delete_session(session_id: str):
+    """Delete a conversation session to free server memory"""
+    try:
+        rag_system.session_manager.clear_session(session_id)
+        if session_id in rag_system.session_manager.sessions:
+            del rag_system.session_manager.sessions[session_id]
+        return {"status": "ok"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
