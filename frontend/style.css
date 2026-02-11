@@ -202,26 +202,38 @@ header h1 {
 
 /* New Chat Button */
 .new-chat-btn {
+    width: 100%;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     cursor: pointer;
-    padding: 0.5rem 0;
-    border: none;
-    background: none;
-    text-align: left;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    background: var(--background);
+    text-align: center;
     outline: none;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border-radius: 8px;
 }
 
 .new-chat-btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary-color);
     color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
 }
 
 .new-chat-btn:focus {
     color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.new-chat-btn:active {
+    transform: translateY(0);
 }
 
 .sidebar-section {
